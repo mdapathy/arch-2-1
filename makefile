@@ -3,7 +3,7 @@ BUILD := $(shell git describe)
 default:out/example
 
 clean:
-	rm -rf out
+	rm -rf ./cmd/example/buildVersion.go  out
 
 test:
 	go vet && go test
