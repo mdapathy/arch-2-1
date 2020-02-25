@@ -12,9 +12,9 @@ import (
 func PrefixEvaluation(input string) (float64, error) {
 
 	// checks whether the line consists of valid math operations and integers/floats
-	if validNotation, _ := regexp.Match(`^\s*((\+|-|\*|/|^)*\s+([0-9]+|[0-9]+\.*[0-9]+)\s*)+$`, []byte(input));
+	if validNotation, _ := regexp.Match(`^\s*(([+\-*/^]\s+)*([0-9]+|[0-9]+\.[0-9]+)\s*)+$`, []byte(input));
 		!validNotation {
-		return 0, errors.New("the input cannot be treated as a Polish notation")
+		return 0, errors.New("input string is not in Polish Notation")
 	}
 
 	var stack []float64
