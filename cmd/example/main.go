@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-
+	fmt.Println(buildVersion)
 	//Parse from command line TODO
 
 	if res, err := lab1.PrefixEvaluation("+ 2 2"); err != nil {
