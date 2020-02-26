@@ -6,10 +6,10 @@ clean:
 	rm -rf ./cmd/example/buildVersion.go  out
 
 test:
-	go get github.com/stretchr/testify/assert
+	go get -d -t ./
 	go vet && go test
 
 out/example:implementation.go cmd/example/main.go
 	mkdir -p out
-	echo "package main \n\nvar buildVersion = \"$(BUILD)\" \n" > ./cmd/example/buildVersion.go
+	echo "package main \n\nvar buildVersion = \"$(BUILD)\" " > ./cmd/example/buildVersion.go
 	go build -o out/example ./cmd/example

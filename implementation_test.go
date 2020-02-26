@@ -25,10 +25,10 @@ var cases = []TestCase{
 	{"Simple test 2", " + 3 / 3 8", 3.375, nil},
 	{"Simple test 3", " ^ 2 / 6 2", 8, nil},
 	{"Null division positive inf", "+ 4 / 5 0", math.Inf(1), nil},
-	{"Complex test 1", " - + * ^ 3 4  5 7 + * 6 7 8 ", 362, nil},                 // ( 3 ^ 4 ) * 5 + 7 - ( 6 * 7 + 8)
-	{"Complex test 2", "- + 4.5 / * 6.7 8.9 6.7 +  6.6  * 4 3", -5.2, nil}, //  6.7 * 8.9 / 6.7 + 4.5  - ( 4 * 3 + 6.6)
-	{"Complex test 3", " -  ^  * 3 4 6  / / * 4 9.3 3.7 0", math.Inf(-1), nil},   // ( 3 * 4 ) ^ 6 - 4 * 9.3 / 3.7 / 0
-	{"Complex test 4", "- 67  + ^ / 3 4 4 / * 5 7 8 ", 62.30859375, nil}, //  67 - ((3 / 4) ^ 4 + (5 * 7 /8) )
+	{"Complex test 1", " - + * ^ 3 4  5 7 + * 6 7 8 ", 362, nil},               // ( 3 ^ 4 ) * 5 + 7 - ( 6 * 7 + 8)
+	{"Complex test 2", "- + 4.5 / * 6.7 8.9 6.7 +  6.6  * 4 3", -5.2, nil},     //  6.7 * 8.9 / 6.7 + 4.5  - ( 4 * 3 + 6.6)
+	{"Complex test 3", " -  ^  * 3 4 6  / / * 4 9.3 3.7 0", math.Inf(-1), nil}, // ( 3 * 4 ) ^ 6 - 4 * 9.3 / 3.7 / 0
+	{"Complex test 4", "- 67  + ^ / 3 4 4 / * 5 7 8 ", 62.30859375, nil},       //  67 - ((3 / 4) ^ 4 + (5 * 7 /8) )
 
 	// Calculations returning error
 	// regex-checked
@@ -52,7 +52,8 @@ func TestPrefixEvaluation(t *testing.T) {
 		t.Run(tcase.name, func(t *testing.T) {
 			res, err := PrefixEvaluation(tcase.input)
 			require.Equal(t, tcase.expectedError, err)
-			assert.True(t, tcase.expectedFloat == res || math.Abs(tcase.expectedFloat - res) < equalityThreshold)
+			// Cannot omit the first comparison because of the infinity returned
+			assert.True(t, tcase.expectedFloat == res || math.Abs(tcase.expectedFloat-res) < equalityThreshold)
 
 		})
 	}
