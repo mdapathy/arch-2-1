@@ -1,3 +1,4 @@
+// Package lab1 provides function to evaluate Polish Notation (prefix) expression.
 package lab1
 
 import (
@@ -8,7 +9,8 @@ import (
 	"strings"
 )
 
-// TODO: document this function.
+// PrefixEvaluation returns the result of the prefix expression. If the passed string is invalid,
+//it returns 0 and a non-nil error, otherwise it calculates the expression and returns its result and a nil error
 func PrefixEvaluation(input string) (float64, error) {
 
 	// checks whether the line consists of valid math operations and integers/floats

@@ -1,4 +1,6 @@
 ### Lab 1 
 **Variant 3**
 
-Обчислити префіксний вираз, використовуючи testify для тестів
+Evaluate prefix expression using testify.
+
+Travis builds can be found [here](https://travis-ci.com/mdapathy/arch-design-1/builds)

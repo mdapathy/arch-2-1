@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"math"
 	"testing"
 )
@@ -14,6 +15,8 @@ type TestCase struct {
 	expectedFloat float64
 	expectedError error
 }
+
+const equalityThreshold = 1e-9
 
 var cases = []TestCase{
 	// Error-free calculations
@@ -48,8 +51,8 @@ func TestPrefixEvaluation(t *testing.T) {
 	for _, tcase := range cases {
 		t.Run(tcase.name, func(t *testing.T) {
 			res, err := PrefixEvaluation(tcase.input)
-			assert.Equal(t, tcase.expectedError, err)
-			assert.Equal(t, tcase.expectedFloat, res)
+			require.Equal(t, tcase.expectedError, err)
+			assert.True(t, tcase.expectedFloat == res || math.Abs(tcase.expectedFloat - res) < equalityThreshold)
 
 		})
 	}
@@ -57,9 +60,11 @@ func TestPrefixEvaluation(t *testing.T) {
 }
 
 func ExamplePrefixEvaluation() {
-	_, err := PrefixEvaluation("/ + 2 3 2")
-	fmt.Println(err)
+	res, err := PrefixEvaluation(" * 4 / + 2 3 2")
+	if err == nil {
+		fmt.Println(res)
+	}
 
 	// Output:
-	// 2.5
+	// 10
 }
